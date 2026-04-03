@@ -1,1 +1,58 @@
-[]
+[
+  {
+    "url": "https://www.solutions-numeriques.com/lasuite-lassurance-maladie-accelere-la-bascule-vers-un-environnement-numerique-souverain/",
+    "title": "LaSuite : l'Assurance Maladie accélère la bascule vers un environnement numérique souverain",
+    "journalist": "Charlotte Rabatel",
+    "email": "rabatel.charlotte@gmail.com",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://presseagence.fr/paris-europe-numerique-le-projet-digital-commons-edic-prend-son-envol/",
+    "title": "PARIS : Europe numérique - Le projet Digital Commons EDIC prend son envol",
+    "journalist": "Rédaction Région",
+    "email": "redaction@presseagence.fr",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://electronlibre.info/articles/105171-souverainete-contre-marche-le-face-a-face-transatlantique-sur-la-regulation-numerique/",
+    "title": "Souveraineté contre marché : le face-à-face transatlantique sur la régulation numérique",
+    "journalist": "Isabelle Szczepanski",
+    "email": "",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.journaldunet.com/cybersecurite/1549295-la-cybersecurite-c-est-branche-maintenant-des-etudiants-aux-exposants-le-forum-incyber-2026-seduit-son-public/",
+    "title": "\"La cybersécurité, c'est branché maintenant !\" : le Forum InCyber 2026 séduit son public",
+    "journalist": "Pascal Coillet-Matillon",
+    "email": "",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.solutions-numeriques.com/euro-office-la-souverainete-europeenne-deja-rattrapee-par-ses-dependances/",
+    "title": "Euro Office : la souveraineté européenne déjà rattrapée par ses dépendances",
+    "journalist": "Camille Suard",
+    "email": "",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.informatiquenews.fr/souverainete-numerique-votre-ia-est-elle-vraiment-la-votre-azza-jabnoun-sqorus-110282",
+    "title": "Souveraineté numérique : votre IA est-elle vraiment la vôtre ?",
+    "journalist": "La rédaction",
+    "email": "",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.generation-nt.com/actualites/guerre-ouverte-onlyoffice-nextcloud-2073472",
+    "title": "Guerre ouverte dans l'open source : ONLYOFFICE claque la porte à Nextcloud",
+    "journalist": "Mathieu M.",
+    "email": "",
+    "date_processed": "2026-04-04T00:05:00Z",
+    "draft_created": true
+  }
+]

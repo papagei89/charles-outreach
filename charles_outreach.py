@@ -2,13 +2,17 @@
 """
 Charles Outreach — Lit les flux RSS Google Alerts,
 récupère le contenu des articles et identifie les journalistes.
+Utilise Hunter.io pour trouver les emails.
 Sauvegarde les résultats dans new_articles.json pour traitement.
 """
 
 import json
+import os
 import re
+import unicodedata
 from datetime import datetime, timezone
 from pathlib import Path
+from urllib.parse import urlparse
 
 import feedparser
 import requests
@@ -25,6 +29,8 @@ RSS_FEEDS = [
     "https://www.google.com/alerts/feeds/10527137650121336393/17349187502244847551",
 ]
 
+HUNTER_API_KEY = os.environ.get("HUNTER_API_KEY", "")
+
 SKIP_DOMAINS = ["linkedin.com", "facebook.com", "twitter.com", "x.com"]
 
 HEADERS = {
@@ -34,6 +40,9 @@ HEADERS = {
 SCRIPT_DIR = Path(__file__).parent
 PROCESSED_FILE = SCRIPT_DIR / "processed_articles.json"
 NEW_ARTICLES_FILE = SCRIPT_DIR / "new_articles.json"
+
+# Cache des formats Hunter par domaine (pour ne pas gaspiller les requêtes)
+_hunter_cache = {}
 
 
 def load_processed():
@@ -48,6 +57,128 @@ def is_processed(url, processed):
 
 def should_skip(url):
     return any(domain in url for domain in SKIP_DOMAINS)
+
+
+def normalize_name(name):
+    """Retire les accents et met en minuscule."""
+    nfkd = unicodedata.normalize("NFKD", name)
+    return "".join(c for c in nfkd if not unicodedata.combining(c)).lower().strip()
+
+
+def get_domain(url):
+    """Extrait le domaine principal d'une URL."""
+    parsed = urlparse(url)
+    host = parsed.hostname or ""
+    if host.startswith("www."):
+        host = host[4:]
+    return host
+
+
+def hunter_find_email(domain, author_name):
+    """Utilise Hunter.io pour trouver l'email d'un journaliste."""
+    if not HUNTER_API_KEY or not author_name or not domain:
+        return None, None
+
+    # Séparer prénom/nom
+    parts = author_name.strip().split()
+    if len(parts) < 2:
+        return None, None
+
+    first_name = parts[0]
+    last_name = parts[-1]
+
+    # Vérifier le cache
+    cache_key = f"{domain}:{normalize_name(first_name)}:{normalize_name(last_name)}"
+    if cache_key in _hunter_cache:
+        return _hunter_cache[cache_key]
+
+    # API email-finder
+    try:
+        resp = requests.get(
+            "https://api.hunter.io/v2/email-finder",
+            params={
+                "domain": domain,
+                "first_name": first_name,
+                "last_name": last_name,
+                "api_key": HUNTER_API_KEY,
+            },
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            data = resp.json().get("data", {})
+            email = data.get("email")
+            score = data.get("score")
+            if email and score and score >= 50:
+                result = (email, score)
+                _hunter_cache[cache_key] = result
+                return result
+    except Exception as e:
+        print(f"      ⚠ Hunter erreur : {e}")
+
+    _hunter_cache[cache_key] = (None, None)
+    return None, None
+
+
+def hunter_domain_search(domain):
+    """Cherche les emails connus pour un domaine via Hunter.io."""
+    if not HUNTER_API_KEY or not domain:
+        return []
+
+    if domain in _hunter_cache:
+        return _hunter_cache[domain]
+
+    try:
+        resp = requests.get(
+            "https://api.hunter.io/v2/domain-search",
+            params={"domain": domain, "api_key": HUNTER_API_KEY, "limit": 5},
+            timeout=10,
+        )
+        if resp.status_code == 200:
+            data = resp.json().get("data", {})
+            emails = data.get("emails", [])
+            pattern = data.get("pattern")
+            result = {"pattern": pattern, "emails": emails}
+            _hunter_cache[domain] = result
+            return result
+    except Exception:
+        pass
+
+    _hunter_cache[domain] = {"pattern": None, "emails": []}
+    return _hunter_cache[domain]
+
+
+def guess_email(domain, author_name):
+    """Devine l'email à partir du format du domaine et du nom."""
+    if not author_name or not domain:
+        return None
+
+    parts = author_name.strip().split()
+    if len(parts) < 2:
+        return None
+
+    first = normalize_name(parts[0])
+    last = normalize_name(parts[-1])
+
+    # Patterns courants
+    guesses = [
+        f"{first}.{last}@{domain}",
+        f"{first[0]}{last}@{domain}",
+        f"{first}@{domain}",
+        f"{first[0]}.{last}@{domain}",
+        f"{last}.{first}@{domain}",
+    ]
+
+    # Si Hunter a trouvé le pattern du domaine, l'utiliser en priorité
+    domain_info = hunter_domain_search(domain)
+    pattern = domain_info.get("pattern") if isinstance(domain_info, dict) else None
+
+    if pattern:
+        email = pattern.replace("{first}", first).replace("{last}", last).replace("{f}", first[0])
+        email = f"{email}@{domain}" if "@" not in email else email
+        return email
+
+    # Sinon retourner le plus courant
+    return guesses[0]
 
 
 def fetch_rss():
@@ -105,10 +236,24 @@ def extract_article(url):
             except Exception:
                 pass
 
-        # Email
-        generic = ["contact@", "info@", "admin@", "support@", "noreply@", "no-reply@", "privacy@", "legal@", "webmaster@", "redaction@"]
-        emails = re.findall(r'[\w.+-]+@[\w-]+\.[\w.-]+', resp.text)
-        journalist_email = next((e for e in emails if not any(e.lower().startswith(g) for g in generic)), None)
+        # Email dans la page
+        generic = [
+            "contact@", "info@", "admin@", "support@", "noreply@",
+            "no-reply@", "privacy@", "legal@", "webmaster@", "redaction@",
+        ]
+        emails_in_page = re.findall(r'[\w.+-]+@[\w-]+\.[\w.-]+', resp.text)
+        # Filtrer le bruit (fichiers, placeholders, etc.)
+        valid_emails = [
+            e for e in emails_in_page
+            if not any(e.lower().startswith(g) for g in generic)
+            and not any(e.endswith(ext) for ext in [".jpg", ".png", ".js", ".css", ".svg"])
+            and "@" in e
+            and "exemple" not in e.lower()
+            and "example" not in e.lower()
+            and "organisation" not in e.lower()
+            and "naam" not in e.lower()
+        ]
+        page_email = valid_emails[0] if valid_emails else None
 
         # Contenu
         for tag in soup(["script", "style", "nav", "footer", "header", "aside"]):
@@ -117,11 +262,34 @@ def extract_article(url):
 
         return {
             "author": author,
-            "email": journalist_email,
+            "page_email": page_email,
             "content": text[:3000],
         }
     except Exception as e:
-        return {"author": None, "email": None, "content": None, "error": str(e)}
+        return {"author": None, "page_email": None, "content": None, "error": str(e)}
+
+
+def find_email(url, author, page_email):
+    """Stratégie en 3 étapes pour trouver l'email."""
+    domain = get_domain(url)
+
+    # 1. Email trouvé dans la page (si ça ressemble à un vrai email)
+    if page_email and len(page_email) > 5:
+        return page_email, "page"
+
+    # 2. Hunter.io email-finder
+    if author and domain:
+        hunter_email, score = hunter_find_email(domain, author)
+        if hunter_email:
+            return hunter_email, f"hunter ({score}%)"
+
+    # 3. Devinette basée sur le pattern du domaine
+    if author and domain:
+        guessed = guess_email(domain, author)
+        if guessed:
+            return guessed, "guess"
+
+    return None, None
 
 
 def main():
@@ -144,17 +312,32 @@ def main():
     for i, article in enumerate(new, 1):
         print(f"[{i}/{len(new)}] {article['title'][:60]}...")
         info = extract_article(article["url"])
+
+        author = info.get("author")
+        page_email = info.get("page_email")
+
+        email, source = find_email(article["url"], author, page_email)
+
+        if email:
+            print(f"    👤 {author or '?'} → 📧 {email} ({source})")
+        else:
+            print(f"    👤 {author or '?'} → ❌ pas d'email")
+
         results.append({
             "title": article["title"],
             "url": article["url"],
-            "author": info.get("author"),
-            "email": info.get("email"),
+            "author": author,
+            "email": email,
+            "email_source": source,
             "content": info.get("content"),
             "fetched_at": datetime.now(timezone.utc).isoformat(),
         })
 
     NEW_ARTICLES_FILE.write_text(json.dumps(results, indent=2, ensure_ascii=False))
+
+    with_email = sum(1 for r in results if r["email"])
     print(f"\n✅ {len(results)} articles sauvegardés dans new_articles.json")
+    print(f"   📧 {with_email} avec email, ❌ {len(results) - with_email} sans")
 
 
 if __name__ == "__main__":

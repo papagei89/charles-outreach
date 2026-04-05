@@ -27,6 +27,26 @@ RSS_FEEDS = [
     # DE
     "https://www.google.com/alerts/feeds/10527137650121336393/2062644191746562873",
     "https://www.google.com/alerts/feeds/10527137650121336393/17349187502244847551",
+    # EU languages — "souveraineté/soberanía/sovranità digitale" etc.
+    "https://www.google.com/alerts/feeds/10527137650121336393/12842318564863564242",
+    "https://www.google.com/alerts/feeds/10527137650121336393/4436570368563472065",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8638822799439434197",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8638822799439436678",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8077719845921761635",
+    "https://www.google.com/alerts/feeds/10527137650121336393/16978861947408862996",
+    "https://www.google.com/alerts/feeds/10527137650121336393/16978861947408860074",
+    "https://www.google.com/alerts/feeds/10527137650121336393/2487475033548909777",
+    "https://www.google.com/alerts/feeds/10527137650121336393/7687914229791810053",
+    "https://www.google.com/alerts/feeds/10527137650121336393/7687914229791810225",
+    "https://www.google.com/alerts/feeds/10527137650121336393/1465575245791626263",
+    "https://www.google.com/alerts/feeds/10527137650121336393/18201389133253053999",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8201337302746870789",
+    "https://www.google.com/alerts/feeds/10527137650121336393/4520455992978468954",
+    "https://www.google.com/alerts/feeds/10527137650121336393/2900238083522821305",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8097810763828790472",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8097810763828790830",
+    "https://www.google.com/alerts/feeds/10527137650121336393/9453177869860021272",
+    "https://www.google.com/alerts/feeds/10527137650121336393/9453177869860023944",
 ]
 
 HUNTER_API_KEY = os.environ.get("HUNTER_API_KEY", "")

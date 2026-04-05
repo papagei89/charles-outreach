@@ -110,5 +110,205 @@
     "email": "",
     "date_processed": "2026-04-04T01:10:00Z",
     "draft_created": true
+  },
+  {
+    "url": "https://www.zdnet.fr/blogs/l-esprit-libre/consortium-europeen-pour-les-communs-numeriques-ledic-sur-les-rails-493158.htm",
+    "title": "Consortium européen pour les communs numériques: l'EDIC sur les rails - ZDNET",
+    "journalist": "Thierry Noisette",
+    "email": "thierry.noisette@zdnet.fr",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.radiofrance.fr/franceinfo/podcasts/nouveau-monde/nouveau-monde-du-samedi-04-avril-2026-7730033",
+    "title": "L'administration allemande veut apprendre à vivre sans Microsoft - Radio France",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.latribune.fr/article/idees/10770316706396/opinion-la-france-assise-sur-ses-dechets-un-gisement-strategique-que-le-monde-ne-peut-plus-attendre",
+    "title": "« La France assise sur ses déchets : un gisement stratégique que le monde ne peut plus attendre »",
+    "journalist": "La Tribune - Rédaction",
+    "email": "lredaction@latribune.fr",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.reddit.com/r/xprivo/comments/1sc5obh/we_recommended_proton_meet_a_new_online_video/?tl=fr",
+    "title": "Nous avons recommandé Proton Meet, un nouvel outil de réunion vidéo en ligne, comme ... - Reddit",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.latribune.fr/article/tech/intelligence-artificielle/89337383165388/qu-est-ce-que-tbpn-le-podcast-et-l-equipe-de-com-rachete-par-openai",
+    "title": "Qu'est-ce que TBPN, le podcast (et l'équipe de com) racheté par OpenAI ? - La Tribune",
+    "journalist": "Marine Protais",
+    "email": "mprotais@latribune.fr",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.mironline.ca/opinion-pourquoi-la-souverainete-numerique-est-un-enjeu-securitaire-crucial-pour-leurope/",
+    "title": "Opinion | Pourquoi la souveraineté numérique est un enjeu sécuritaire crucial pour l'Europe",
+    "journalist": "Aurélien Quéméner",
+    "email": "aurelien.quemener@mironline.ca",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.esteval.fr/article.45746.etudes-souverainete-europeenne-en-intelligence-artificielle-epitech-alerte-sur-le-defi-des",
+    "title": "[Etudes] Souveraineté européenne en intelligence artificielle : Epitech alerte sur le défi des talents",
+    "journalist": "Esteval",
+    "email": "adresse@email.fr",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.pressreader.com/france/euronews-french-edition/20260404/281956024336624",
+    "title": "Le road trip le plus délicat du CERN : l'antimatière sort du labo - PressReader",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.thestar.com/business/opinion/heres-why-canada-needs-to-take-a-water-testing-approach-to-cybersecurity/article_a958d802-c050-4eca-8130-791debc0fe5a.html",
+    "title": "Canada needs to take a 'water testing' approach to cybersecurity - Toronto Star",
+    "journalist": "Alexander Poizner Contributor",
+    "email": "acontributor@thestar.com",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.reddit.com/r/eutech/comments/1sc5dup/in_pursuit_of_the_eu_digital_sovereignty/",
+    "title": "In pursuit of the EU digital sovereignty Nextcloud presented Euro-office ... a fork of Russian OnlyOffice",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.reddit.com/r/opensource/comments/1sc79aq/europe_builds_microsoftalternative_eurooffice_to/",
+    "title": "r/opensource - Europe builds Microsoft-alternative 'Euro-Office' to reclaim digital sovereignty",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://thenextweb.com/news/european-commission-breach-trivy-supply-chain",
+    "title": "European Commission breached after hackers poisoned open-source security tool Trivy",
+    "journalist": "Allison Steffens Herrera",
+    "email": "j3j5@hachyderm.io",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://euagenda.eu/events/2026/04/14/2nd-digital-participatory-forum",
+    "title": "2nd Digital Participatory Forum - EU Agenda",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.ad-hoc-news.de/boerse/news/ueberblick/deutsche-telekom-ceo-calls-for-regulatory-overhaul-amid-strong-financial/69077322",
+    "title": "Deutsche Telekom CEO Calls for Regulatory Overhaul Amid Strong Financial Performance",
+    "journalist": "Redaktion ad-hoc-news.de",
+    "email": "redaktion@ad-hoc-news.de",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://thebossnewspapers.com/2026/04/04/the-oracle-the-new-digital-colonialism-navigating-ai-policy-under-foreign-tech-dominance-pt-5/",
+    "title": "The Oracle: The New Digital Colonialism: Navigating AI Policy Under Foreign Tech ...",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.travelandtourworld.com/news/article/sahel-digital-transformation-how-the-niger-algeria-partnership-is-reshaping-african-tech/",
+    "title": "Sahel Digital Transformation: How the Niger-Algeria Partnership is Reshaping African Tech",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://doctorow.medium.com/https-pluralistic-net-2026-04-04-digital-subjugation-greenlands-next-6aee6ffb518d",
+    "title": "EU ready to cave to Trump on tech | by Cory Doctorow | Apr, 2026 | Medium",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://tiinside.com.br/en/04/04/2026/Green-technology-and-connectivity%3A-the-new-pillars-of-the-global-digital-infrastructure./",
+    "title": "Green technology and connectivity: the new pillars of global digital infrastructure - TI Inside",
+    "journalist": "Colaboradores",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.sciencedirect.com/science/article/abs/pii/S2212473X26000556",
+    "title": "The Brussels Effect of the EU's twin digital regulations on China's platform governance",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.proximus.be/en/id_b_cl_digital_sovereignty_geopolitics/companies-and-public-sector/news/news-blog/expert-talks/how-geopolitics-drive-europe-s-digital-sovereignty-shift.html",
+    "title": "Geopolitics drives Europe's digital sovereignty | Proximus NXT",
+    "journalist": "",
+    "email": "emojione@3.1.2",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://social.edu.nl/@MishaVelthuis/116341571951200124",
+    "title": "Misha: \"I remember reading somewhere t…\" - SURF Mastodon",
+    "journalist": "Misha",
+    "email": "MishaVelthuis@social.edu.nl",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.digitimes.com/news/a20260402VL206/taiwan-ai-data-hardware-industrial.html",
+    "title": "How second-tier powers are bypassing big tech via Taiwan - digitimes",
+    "journalist": "Emily Kuo, DIGITIMES Asia, Taipei",
+    "email": "zoran@digitimes.com",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://ciobusinessviews.com/news/detail/mistrals-830m-ai-bet-signals-europes-push-for-digital-sovereignty",
+    "title": "Mistral's $830M AI Bet Signals Europe's Push for Digital Sovereignty - CIO Business Views",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.aktiencheck.de/news/Artikel-SoftBank_Aktie_30_Milliarden_Coup-19632405",
+    "title": "SoftBank Aktie: Der 30-Milliarden-Coup () - aktiencheck.de",
+    "journalist": "aktiencheck.de AG",
+    "email": "aktiencheck.deag@aktiencheck.de",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
+  },
+  {
+    "url": "https://www.golem.de/news/glasfaser-digitale-souveraenitaet-braucht-dark-fiber-meint-1-1-versatel-2604-207227.html",
+    "title": "Glasfaser: Digitale Souveränität braucht Dark Fiber, meint 1&1 Versatel - Golem.de",
+    "journalist": "",
+    "email": "",
+    "date_processed": "2026-04-05T21:32:50Z",
+    "draft_created": true
   }
 ]

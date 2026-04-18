@@ -60,6 +60,7 @@ HEADERS = {
 SCRIPT_DIR = Path(__file__).parent
 PROCESSED_FILE = SCRIPT_DIR / "processed_articles.json"
 NEW_ARTICLES_FILE = SCRIPT_DIR / "new_articles.json"
+RESPONDED_FILE = SCRIPT_DIR / "responded.json"
 
 # Cache des formats Hunter par domaine (pour ne pas gaspiller les requêtes)
 _hunter_cache = {}
@@ -69,6 +70,15 @@ def load_processed():
     if PROCESSED_FILE.exists():
         return json.loads(PROCESSED_FILE.read_text())
     return []
+
+
+def load_responded():
+    """Charge la liste des contacts qui ont déjà répondu.
+    Ces articles ne sont pas exclus, mais taggés pour traitement manuel."""
+    if RESPONDED_FILE.exists():
+        entries = json.loads(RESPONDED_FILE.read_text())
+        return {e["email"].lower(): e for e in entries if e.get("email")}
+    return {}
 
 
 def is_processed(url, processed):
@@ -290,7 +300,7 @@ def extract_article(url):
 
 
 def find_email(url, author, page_email):
-    """Stratégie en 3 étapes pour trouver l'email."""
+    """Stratégie en 2 étapes pour trouver l'email."""
     domain = get_domain(url)
 
     # 1. Email trouvé dans la page (si ça ressemble à un vrai email)
@@ -303,12 +313,8 @@ def find_email(url, author, page_email):
         if hunter_email:
             return hunter_email, f"hunter ({score}%)"
 
-    # 3. Devinette basée sur le pattern du domaine
-    if author and domain:
-        guessed = guess_email(domain, author)
-        if guessed:
-            return guessed, "guess"
-
+    # Pas de devinette de pattern : les guesses sont quasi systématiquement
+    # invalides (vérifié via email-verifier) et brûlent la réputation d'envoi.
     return None, None
 
 
@@ -317,6 +323,10 @@ def main():
 
     processed = load_processed()
     print(f"📋 {len(processed)} articles déjà traités")
+
+    responded = load_responded()
+    if responded:
+        print(f"✋ {len(responded)} contacts ayant déjà répondu (traitement manuel)")
 
     articles = fetch_rss()
     print(f"\n📰 {len(articles)} articles dans les flux")
@@ -338,8 +348,12 @@ def main():
 
         email, source = find_email(article["url"], author, page_email)
 
+        responded_entry = responded.get(email.lower()) if email else None
+        needs_manual = responded_entry is not None
+
         if email:
-            print(f"    👤 {author or '?'} → 📧 {email} ({source})")
+            tag = " ✋ MANUEL (a déjà répondu)" if needs_manual else ""
+            print(f"    👤 {author or '?'} → 📧 {email} ({source}){tag}")
         else:
             print(f"    👤 {author or '?'} → ❌ pas d'email")
 
@@ -351,13 +365,22 @@ def main():
             "email_source": source,
             "content": info.get("content"),
             "fetched_at": datetime.now(timezone.utc).isoformat(),
+            "needs_manual_review": needs_manual,
+            "manual_reason": (
+                f"Contact a déjà répondu ({responded_entry.get('name', '?')} "
+                f"ajouté {responded_entry.get('added_at', '?')})"
+                if needs_manual else None
+            ),
         })
 
     NEW_ARTICLES_FILE.write_text(json.dumps(results, indent=2, ensure_ascii=False))
 
     with_email = sum(1 for r in results if r["email"])
+    manual = sum(1 for r in results if r.get("needs_manual_review"))
     print(f"\n✅ {len(results)} articles sauvegardés dans new_articles.json")
     print(f"   📧 {with_email} avec email, ❌ {len(results) - with_email} sans")
+    if manual:
+        print(f"   ✋ {manual} à traiter manuellement (contacts ayant déjà répondu)")
 
 
 if __name__ == "__main__":

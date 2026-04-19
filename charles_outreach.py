@@ -47,6 +47,10 @@ RSS_FEEDS = [
     "https://www.google.com/alerts/feeds/10527137650121336393/8097810763828790830",
     "https://www.google.com/alerts/feeds/10527137650121336393/9453177869860021272",
     "https://www.google.com/alerts/feeds/10527137650121336393/9453177869860023944",
+    "https://www.google.com/alerts/feeds/10527137650121336393/10705924598992531867",
+    "https://www.google.com/alerts/feeds/10527137650121336393/2973589459866390932",
+    "https://www.google.com/alerts/feeds/10527137650121336393/8108076253024094119",
+    "https://www.google.com/alerts/feeds/10527137650121336393/17415531096153526205",
 ]
 
 HUNTER_API_KEY = os.environ.get("HUNTER_API_KEY", "")
